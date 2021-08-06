@@ -1,0 +1,489 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
+
+$purple: rgb(96, 94, 253);
+$lightpurple: rgb(147, 145, 255);
+$text: rgb(105, 105, 105);
+$text-dark: rgb(92, 92, 92);
+$bg-default: #e0b7f7;
+$bg-gradient: linear-gradient(120deg, #ecccf7 5%, 10%, #fdfcf9 40%);
+
+// media queries
+@mixin screen($size) {
+  $desktop: "(min-width: 1024px)";
+  $tablet: "(min-width: 768px) and (max-width: 1023px)";
+  $mobile: "(max-width: 767px)";
+  @if $size == desktop {
+    @media only screen and #{$desktop} {
+      @content;
+    }
+  } @else if $size == tablet {
+    @media only screen and #{$tablet} {
+      @content;
+    }
+  } @else if $size == mobile {
+    @media only screen and #{$mobile} {
+      @content;
+    }
+  } @else {
+    @media only screen and #{$size} {
+      @content;
+    }
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "DM Sans", sans-serif;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover:not(.nav-link) {
+    text-decoration: underline;
+  }
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1100px;
+  padding-left: 32px;
+  padding-right: 32px;
+  margin: 0 auto;
+}
+
+.gradient-wrapper {
+  background-color: $bg-default;
+  background-image: $bg-gradient;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+// used in nav + hero:
+.cta-btn {
+  background: $purple;
+  height: 50px;
+  border-radius: 5px;
+  color: #fff;
+  width: 200px;
+
+  &:hover {
+    filter: brightness(85%);
+  }
+}
+
+// section p styles:
+%paragraphs {
+  color: $text;
+  line-height: 1.5;
+}
+
+/* ------------------------
+Navigation
+------------------------ */
+
+nav {
+  padding: 4rem 0;
+
+  @include screen("(min-width: 768px)") {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.mobile-nav {
+  display: flex;
+  justify-content: space-between;
+
+  .burger-btn {
+    cursor: pointer;
+
+    @include screen("(min-width: 768px)") {
+      display: none !important;
+    }
+  }
+}
+
+.nav-links {
+  overflow: hidden;
+  opacity: 0;
+  height: 0;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-weight: bold;
+  transition: 0.5s all;
+
+  @include screen("(min-width: 768px)") {
+    height: auto;
+    opacity: 1;
+    margin-top: 0;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  > .cta-btn {
+    @include screen("mobile") {
+      width: 100%;
+    }
+
+    @include screen("(min-width: 768px)") {
+      margin-left: 1rem;
+    }
+  }
+
+  a {
+    font-size: 1.2rem;
+    padding: 0.8rem 0;
+    border: 1px solid $bg-default;
+    color: $purple;
+    border-radius: 5px;
+    background: #fff;
+
+    @include screen("(min-width: 768px)") {
+      color: $text-dark;
+      border: none;
+      background: inherit;
+      padding: 0 1rem;
+    }
+  }
+}
+
+.nav-links.active {
+  height: 152px;
+  opacity: 1;
+}
+
+/* ------------------------
+Hero
+------------------------ */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+
+  @include screen("desktop") {
+    flex-direction: row;
+  }
+
+  .image-container {
+    order: 1;
+    text-align: center;
+
+    @include screen("desktop") {
+      order: 2;
+      flex: 1;
+    }
+  }
+
+  .content {
+    order: 2;
+
+    @include screen("desktop") {
+      order: 1;
+      flex: 1;
+    }
+
+    h1 {
+      font-size: 2.7rem;
+      margin-bottom: 0;
+
+      br.visibility {
+        @include screen("mobile") {
+          display: none;
+        }
+      }
+    }
+
+    img {
+      margin-top: 1rem;
+      max-width: 315px;
+
+      @include screen("(min-width: 768px)") {
+        margin-top: 0;
+      }
+    }
+
+    p {
+      @extend %paragraphs;
+
+      span {
+        color: $purple;
+      }
+    }
+
+    .btn {
+      padding: 0 20px;
+
+      @include screen("(min-width: 768px)") {
+        margin-bottom: 1rem;
+      }
+
+      @include screen("desktop") {
+        padding: 0;
+      }
+    }
+
+    .column {
+      @include screen("(min-width: 768px)") {
+        display: flex;
+        flex-direction: column;
+        width: 30vw;
+      }
+    }
+  }
+}
+
+/* ------------------------
+Features-One
+------------------------ */
+%section-title {
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+.features-one {
+  margin-top: 8rem;
+
+  .container {
+    @include screen("(min-width: 768px)") {
+      display: flex;
+      flex-flow: row wrap;
+    }
+  }
+
+  .image-container,
+  .content {
+    @include screen("(min-width: 768px)") {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
+    }
+  }
+
+  .content {
+    @include screen("(min-width: 768px)") {
+      order: 1;
+      margin-right: 1rem;
+    }
+
+    @include screen("desktop") {
+      flex: 0 1 50%;
+    }
+  }
+
+  .image-container {
+    @include screen("(min-width: 768px)") {
+      order: 2;
+      margin-top: 1rem;
+    }
+
+    @include screen("desktop") {
+      flex: 0 1 35%;
+      margin-left: auto;
+      margin-top: 0;
+    }
+  }
+
+  h2 {
+    @extend %section-title;
+
+    @include screen("(min-width: 768px)") {
+      margin-top: 0;
+    }
+  }
+
+  p {
+    @extend %paragraphs;
+    margin-top: 0.5rem;
+  }
+
+  span {
+    margin-left: 5px;
+  }
+
+  a {
+    color: $lightpurple;
+  }
+}
+
+/* ------------------------
+Features-Two
+------------------------ */
+
+.features-two {
+  @include screen("(min-width: 768px)") {
+    margin-top: 4rem;
+  }
+
+  .container {
+    @include screen("(min-width: 768px)") {
+      display: flex;
+      flex-flow: row-wrap;
+    }
+  }
+
+  .image-container {
+    margin: 4rem 0;
+
+    @include screen("mobile") {
+      text-align: center;
+    }
+
+    @include screen("(min-width: 768px)") {
+      margin-top: 0;
+    }
+
+    img {
+      @include screen("mobile") {
+        max-width: 300px;
+      }
+    }
+  }
+
+  .content {
+    @include screen("desktop") {
+      align-self: center;
+    }
+  }
+
+  .image-container,
+  .content {
+    @include screen("(min-width: 768px)") {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
+    }
+  }
+
+  h3 {
+    @extend %section-title;
+
+    @include screen("(min-width: 768px)") {
+      margin-top: 0;
+    }
+  }
+
+  p {
+    @extend %paragraphs;
+  }
+
+  span {
+    margin-left: 5px;
+  }
+
+  a {
+    color: $lightpurple;
+  }
+}
+
+/* ------------------------
+Footer
+------------------------ */
+
+footer {
+  background: rgb(246, 246, 231);
+  margin-top: 8rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  @include screen("(min-width: 768px)") {
+    margin-top: 4rem;
+  }
+
+  @include screen("desktop") {
+    padding-bottom: 0;
+  }
+
+  .container {
+    @include screen("(min-width: 768px)") {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 2rem;
+    }
+
+    @include screen("desktop") {
+      display: flex;
+    }
+  }
+
+  .links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 2rem;
+
+    @include screen("desktop") {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: none;
+      column-gap: 2rem;
+      margin-left: auto;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column.grid-end {
+      justify-self: end;
+
+      @include screen("(min-width: 768px)") {
+        justify-self: normal;
+      }
+    }
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+
+    @include screen("(min-width: 768px)") {
+      margin-top: 0;
+    }
+  }
+
+  p {
+    color: $text-dark;
+    margin: 0;
+  }
+
+  p:nth-of-type(2) {
+    margin-top: 1.5rem;
+  }
+
+  a {
+    color: $text-dark;
+    padding: 5px 0;
+  }
+
+  span {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content {
+    margin-bottom: 2rem;
+
+    @include screen("desktop") {
+      flex: 0 1 30%;
+    }
+  }
+}
